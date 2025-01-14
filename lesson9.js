@@ -1,9 +1,11 @@
 //1
-function HtmlElement(type,textContent)
+const  HtmlElement=function(type,textContent)
 {
     this.type=type
     this.textContent=textContent
     this.id=HtmlElement.count++
+    if(new.target)
+        throw new Error("cannot create an instance from abstract class")
 }
 HtmlElement.count=1
 HtmlElement.prototype.render=function()
@@ -53,21 +55,38 @@ function createMyElement()
 {
     let type=document.getElementById("t1").value
     let textContent=document.getElementById("t2").value
-    let e=new HtmlElement(type,textContent)
-    e.render()
+    try{
+        let e=new HtmlElement(type,textContent) 
+        e.render()
+    }
+    catch(error){
+        console.log(error.message)
+    }
 }
 function createImage()
 {
     let src=document.getElementById("t3").value
     let alt=document.getElementById("t4").value
-    let e=new ImageElement(src,alt)
-    e.render()
+    try{
+        let e=new ImageElement(src,alt)
+         e.render()
+    }
+    catch(error){
+        console.log(error.message)
+    }
+   
 }
 function createSelect()
 {
     let option=document.getElementById("t5").value
     const array = option.split(',');
     const trimmedArray = array.map(item => item.trim()); 
-    let e=new SelectElement(trimmedArray)
-    e.render()
+    try{
+        let e=new SelectElement(trimmedArray)   
+        e.render()
+
+    }
+    catch(error){
+        console.log(error.message)
+    }
 }
